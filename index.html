@@ -1,198 +1,293 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NoFlix - Canais ao Vivo</title>
-<link rel="icon" href="/favicon.png" type="image/png">
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.13/dist/hls.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
-  :root { --bg-dark:#020617; --accent:#dc2626; }
-  body { background:var(--bg-dark); color:#f8fafc; font-family:'Inter',sans-serif; }
-  .channel-card { background:#0f172a; border:1px solid #1e293b; transition:transform .15s, border-color .15s; }
-  .channel-card:hover { transform:translateY(-2px); border-color:var(--accent); }
-  .group-pill { background:#1e293b; }
-  .group-pill.active { background:var(--accent); color:#fff; }
-  details > summary { list-style:none; cursor:pointer; }
-  details > summary::-webkit-details-marker { display:none; }
-  #playerModal { backdrop-filter: blur(6px); }
-  .scroll-x::-webkit-scrollbar { height:6px; }
-  .scroll-x::-webkit-scrollbar-thumb { background:#334155; border-radius:3px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora Uber</title>
+  <style>
+    :root {
+      --bg1: #06101d; --bg2: #0f172a; --line: #243244;
+      --text: #e5e7eb; --muted: #94a3b8; --green: #22c55e; --blue: #38bdf8; --red: #ef4444;
+      --shadow: 0 16px 38px rgba(0,0,0,.28); --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; color: var(--text); background: linear-gradient(180deg, var(--bg1), var(--bg2) 55%, #0f172a); padding: 20px; }
+    .wrap { max-width: 1600px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 26px; }
+    .sub { margin: 0 0 18px; color: var(--muted); font-size: 13px; }
+    .grid-top { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; margin-bottom: 16px; }
+    .card { background: rgba(17,24,39,.96); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
+    .stats, .bottom-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .bottom-stats { grid-template-columns: repeat(4, 1fr); margin-top: 12px; }
+    .stat { background: #0b1220; border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; min-height: 74px; }
+    .stat .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .stat .value { font-size: 18px; font-weight: 700; margin-top: 6px; font-variant-numeric: tabular-nums; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    button { border: 0; border-radius: 12px; padding: 10px 14px; font-weight: 700; cursor: pointer; transition: .15s ease; }
+    button:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .btn-green { background: var(--green); color: #052e16; }
+    .btn-blue { background: var(--blue); color: #082f49; }
+    .btn-red { background: var(--red); color: #fff; }
+    .txt-box { width: 100%; min-height: 220px; resize: vertical; border-radius: 14px; border: 1px solid var(--line); background: #0b1220; color: #d1fae5; padding: 12px; font-family: monospace; font-size: 13px; outline: none; }
+    .table-wrap { overflow: auto; border-radius: var(--radius); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    table { width: 100%; border-collapse: collapse; min-width: 1480px; background: #0b1220; }
+    th { position: sticky; top: 0; z-index: 2; background: #111827; color: #cbd5e1; font-size: 12px; text-transform: uppercase; padding: 10px 8px; border-bottom: 1px solid #334155; text-align: left; }
+    td { border-bottom: 1px solid #1f2937; border-right: 1px solid #1f2937; padding: 7px; }
+    tr:hover { background: #0f172a; }
+    input { width: 100%; background: #111827; color: var(--text); border: 1px solid #334155; border-radius: 10px; padding: 9px 10px; font-size: 13px; outline: none; }
+    input:focus { border-color: var(--blue); }
+    .readonly { background: #0f172a !important; color: #d1fae5 !important; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .small { font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+    /* ESTILOS DO RODAPÉ COM CARROSSEL */
+    .banner-footer { margin-top: 24px; }
+    .carousel-wrapper { position: relative; display: flex; align-items: center; }
+    .carousel-container {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 10px 4px;
+      scrollbar-width: none; /* Firefox */
+    }
+    .carousel-container::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+    .carousel-item {
+      flex: 0 0 auto;
+      width: 380px;
+      height: 220px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #0b1220;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .carousel-item:hover {
+      transform: translateY(-3px);
+      border-color: var(--blue);
+    }
+    .carousel-item a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+    }
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(17, 24, 39, 0.9);
+      color: var(--text);
+      border: 1px solid var(--line);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 20px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .carousel-btn.left { left: -15px; }
+    .carousel-btn.right { right: -15px; }
+
+    @media (max-width: 1100px) { 
+      .grid-top { grid-template-columns: 1fr; } 
+      .bottom-stats { grid-template-columns: repeat(2, 1fr); } 
+      .carousel-item { width: 280px; height: 160px; }
+    }
+  </style>
 </head>
-<body class="min-h-screen">
+<body>
+<div class="wrap">
+  <h1>CONTROLE DE CORRIDAS UBER</h1>
+  <p class="sub">30 linhas com cálculos automáticos e cópia em TXT.</p>
 
-<!-- Header -->
-<header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur border-b border-slate-800">
-  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
-    <h1 class="text-2xl font-black tracking-tight">
-      <span class="text-red-600">No</span>Flix
-    </h1>
-    <div class="ml-auto flex-1 max-w-md relative">
-      <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
-      <input id="search" type="text" placeholder="Buscar canal..."
-        class="w-full bg-slate-900 border border-slate-800 rounded-full pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-red-600">
+  <div class="grid-top">
+    <div class="card">
+      <div class="stats">
+        <div class="stat"><div class="label">Faturamento acumulado</div><div class="value" id="sumFaturamento">R$ 0,00</div></div>
+        <div class="stat"><div class="label">Passe acumulado</div><div class="value" id="sumPasse">R$ 0,00</div></div>
+        <div class="stat"><div class="label">Combustível acumulado</div><div class="value" id="sumCombustivel">R$ 0,00</div></div>
+        <div class="stat"><div class="label">Líquido acumulado</div><div class="value" id="sumLiquido">R$ 0,00</div></div>
+      </div>
+
+      <div class="bottom-stats">
+        <div class="stat"><div class="label">KM acumulado</div><div class="value" id="sumKm">0,00</div></div>
+        <div class="stat"><div class="label">Horas acumuladas</div><div class="value" id="sumHoras">0,00</div></div>
+        <div class="stat"><div class="label">R$/Hora geral</div><div class="value" id="sumRHora">R$ 0,00</div></div>
+        <div class="stat"><div class="label">Linhas preenchidas</div><div class="value" id="sumDias">0</div></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-green" onclick="copyTxt()">Copiar TXT</button>
+        <button class="btn-blue" onclick="saveData()">Salvar agora</button>
+        <button class="btn-blue" onclick="window.print()">Imprimir</button>
+        <button class="btn-red" onclick="resetMonth()">Zerar mês</button>
+      </div>
+
+      <div class="small">Os dados são salvos automaticamente no navegador.</div>
+    </div>
+
+    <div class="card">
+      <div class="stat" style="margin-bottom:10px">
+        <div class="label">TXT pronto para copiar</div>
+        <div class="value" style="font-size:13px;font-weight:400;color:var(--muted);margin-top:8px">Atualiza conforme você edita a tabela.</div>
+      </div>
+      <textarea id="txtOutput" class="txt-box" readonly></textarea>
     </div>
   </div>
-  <!-- Group filter -->
-  <div id="groups" class="max-w-7xl mx-auto px-4 pb-3 flex gap-2 overflow-x-auto scroll-x"></div>
-</header>
 
-<!-- Main -->
-<main class="max-w-7xl mx-auto px-4 py-6">
-  <div id="status" class="text-center text-slate-400 py-12">
-    <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
-    <p>Carregando canais do Dropbox...</p>
+  <div class="table-wrap">
+    <table id="uberTable">
+      <thead>
+        <tr>
+          <th>DATA</th><th>FATURAMENTO</th><th>PASSE</th><th>COMBUSTÍVEL</th><th>LÍQUIDO</th><th>KM</th><th>HORAS</th><th>R$/HORA</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
-  <div id="channels" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3"></div>
-  <p id="count" class="text-center text-slate-500 text-xs mt-8"></p>
-</main>
 
-<!-- Player modal -->
-<div id="playerModal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-  <div class="bg-slate-900 rounded-xl overflow-hidden w-full max-w-4xl shadow-2xl">
-    <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800">
-      <h2 id="playerTitle" class="font-bold truncate"></h2>
-      <button id="closePlayer" class="text-slate-400 hover:text-white text-xl px-2"><i class="fas fa-times"></i></button>
+  <!-- RODAPÉ COM PROPAGANDAS EM CARROSSEL -->
+  <div class="card banner-footer">
+    <div class="stat" style="margin-bottom:12px; border:none; padding:0; background:transparent;">
+      <div class="label">Anúncios & Parceiros</div>
     </div>
-    <video id="video" class="w-full aspect-video bg-black" controls autoplay playsinline></video>
-    <p class="text-xs text-slate-500 px-4 py-2">Se o canal não tocar, o stream pode estar offline ou bloqueado pelo navegador (CORS / HTTP).</p>
+    <div class="carousel-wrapper">
+      <button class="carousel-btn left" onclick="scrollCarousel(-400)">&#10094;</button>
+      <div class="carousel-container" id="adCarousel">
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 1">
+          </a>
+        </div>
+      </div>
+      <button class="carousel-btn right" onclick="scrollCarousel(400)">&#10095;</button>
+    </div>
   </div>
 </div>
 
 <script>
-const PLAYLIST_URL = "https://dl.dropbox.com/scl/fi/at4plqzgy3lb2mhg46xox/HOTSEX.txt?rlkey=6h00qnegtc3csrtx8poy28yfo&st=q6kyazmd&dl=0";
+const KEY = 'uber_calc_30linhas_v3';
+const tbody = document.querySelector('#uberTable tbody');
 
-let allChannels = [];
-let currentGroup = "Todos";
-let currentSearch = "";
-let hls = null;
-
-function parseM3U(text) {
-  const lines = text.split(/\r?\n/);
-  const out = [];
-  let cur = null;
-  for (const line of lines) {
-    if (line.startsWith("#EXTINF")) {
-      const name = line.split(",").slice(1).join(",").trim();
-      const logo = (line.match(/tvg-logo="([^"]*)"/) || [,""])[1];
-      const group = (line.match(/group-title="([^"]*)"/) || [,"Outros"])[1] || "Outros";
-      cur = { name, logo, group };
-    } else if (line && !line.startsWith("#") && cur) {
-      cur.url = line.trim();
-      out.push(cur);
-      cur = null;
-    }
-  }
-  return out;
+for (let i = 0; i < 30; i++) {
+  tbody.innerHTML += `
+    <tr>
+      <td><input class="date" placeholder="DD/MM"></td>
+      <td><input class="faturamento" placeholder="0,00"></td>
+      <td><input class="passe" placeholder="0,00"></td>
+      <td><input class="combustivel" placeholder="0,00"></td>
+      <td><input class="liquido readonly" readonly></td>
+      <td><input class="km num" placeholder="0,0"></td>
+      <td><input class="horas num" placeholder="0,0"></td>
+      <td><input class="rhora readonly" readonly></td>
+    </tr>`;
 }
 
-function render() {
-  const container = document.getElementById("channels");
-  const filtered = allChannels.filter(c => {
-    const okGroup = currentGroup === "Todos" || c.group === currentGroup;
-    const okSearch = !currentSearch || c.name.toLowerCase().includes(currentSearch);
-    return okGroup && okSearch;
+function parseBR(v) {
+  if (!v) return 0;
+  v = String(v).trim().replace(/\./g, '').replace(',', '.').replace(/[^0-9.-]/g, '');
+  return parseFloat(v) || 0;
+}
+
+function fmtBR(n) { return (Number(n) || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function fmtTxt(n) { return 'R$ ' + fmtBR(n); }
+function rows() { return [...tbody.querySelectorAll('tr')]; }
+
+function collect() {
+  return rows().map(tr => ({
+    date: tr.querySelector('.date').value,
+    faturamento: tr.querySelector('.faturamento').value,
+    passe: tr.querySelector('.passe').value,
+    combustivel: tr.querySelector('.combustivel').value,
+    km: tr.querySelector('.km').value,
+    horas: tr.querySelector('.horas').value
+  }));
+}
+
+function apply(data) {
+  rows().forEach((tr, i) => {
+    const d = data?.[i] || {};
+    tr.querySelector('.date').value = d.date || '';
+    tr.querySelector('.faturamento').value = d.faturamento || '';
+    tr.querySelector('.passe').value = d.passe || '';
+    tr.querySelector('.combustivel').value = d.combustivel || '';
+    tr.querySelector('.km').value = d.km || '';
+    tr.querySelector('.horas').value = d.horas || '';
   });
-  container.innerHTML = filtered.map((c, i) => `
-    <button data-idx="${allChannels.indexOf(c)}" class="channel-card rounded-lg p-3 flex flex-col items-center text-center gap-2">
-      ${c.logo
-        ? `<img src="${c.logo}" alt="" class="w-14 h-14 object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-           <div class="w-14 h-14 rounded bg-slate-800 hidden items-center justify-center text-red-600"><i class="fas fa-tv text-xl"></i></div>`
-        : `<div class="w-14 h-14 rounded bg-slate-800 flex items-center justify-center text-red-600"><i class="fas fa-tv text-xl"></i></div>`
-      }
-      <span class="text-xs font-semibold line-clamp-2">${c.name}</span>
-      <span class="text-[10px] text-slate-500">${c.group}</span>
-    </button>
-  `).join("");
-  document.getElementById("count").textContent = `${filtered.length} de ${allChannels.length} canais`;
 }
 
-function renderGroups() {
-  const groups = ["Todos", ...Array.from(new Set(allChannels.map(c => c.group))).sort()];
-  document.getElementById("groups").innerHTML = groups.map(g => `
-    <button data-group="${g}" class="group-pill ${g===currentGroup?'active':''} whitespace-nowrap text-xs font-semibold px-3 py-1.5 rounded-full">${g}</button>
-  `).join("");
+function saveData() { localStorage.setItem(KEY, JSON.stringify(collect())); }
+
+function loadData() {
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (d) apply(d);
+  } catch (e) {}
 }
 
-function play(channel) {
-  document.getElementById("playerTitle").textContent = channel.name;
-  const modal = document.getElementById("playerModal");
-  const video = document.getElementById("video");
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
+function update() {
+  let sf = 0, sp = 0, sc = 0, sl = 0, sk = 0, sh = 0, filled = 0;
+  const lines = ['CONTROLE DE CORRIDAS UBER', '=========================', '', 'DATA | FATURAMENTO | PASSE | COMBUSTÍVEL | LÍQUIDO | KM | HORAS | R$/HORA', '-----|-------------|-------|-------------|---------|----|-------|--------'];
 
-  if (hls) { hls.destroy(); hls = null; }
-  const url = channel.url;
+  rows().forEach(tr => {
+    const d = tr.querySelector('.date'), f = tr.querySelector('.faturamento'), p = tr.querySelector('.passe'),
+          c = tr.querySelector('.combustivel'), l = tr.querySelector('.liquido'), k = tr.querySelector('.km'),
+          h = tr.querySelector('.horas'), r = tr.querySelector('.rhora');
 
-  if (url.endsWith(".m3u8") || url.includes(".m3u8")) {
-    if (window.Hls && Hls.isSupported()) {
-      hls = new Hls();
-      hls.loadSource(url);
-      hls.attachMedia(video);
-    } else {
-      video.src = url;
-    }
-  } else {
-    // streams .ts ou diretos — tenta hls.js mesmo assim, senão fallback
-    if (window.Hls && Hls.isSupported()) {
-      hls = new Hls();
-      hls.loadSource(url);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.ERROR, () => { video.src = url; });
-    } else {
-      video.src = url;
-    }
-  }
-  video.play().catch(()=>{});
-}
+    const fv = parseBR(f.value), pv = parseBR(p.value), cv = parseBR(c.value), kv = parseBR(k.value), hv = parseBR(h.value);
+    const lv = fv - pv - cv, rv = hv > 0 ? lv / hv : 0;
 
-function closePlayer() {
-  const modal = document.getElementById("playerModal");
-  const video = document.getElementById("video");
-  modal.classList.add("hidden");
-  modal.classList.remove("flex");
-  video.pause(); video.removeAttribute("src"); video.load();
-  if (hls) { hls.destroy(); hls = null; }
-}
+    l.value = (f.value || p.value || c.value) ? fmtBR(lv) : '';
+    r.value = hv > 0 ? fmtBR(rv) : '';
 
-// Events
-document.getElementById("search").addEventListener("input", e => {
-  currentSearch = e.target.value.toLowerCase().trim();
-  render();
-});
-document.getElementById("groups").addEventListener("click", e => {
-  const btn = e.target.closest("[data-group]");
-  if (!btn) return;
-  currentGroup = btn.dataset.group;
-  renderGroups(); render();
-});
-document.getElementById("channels").addEventListener("click", e => {
-  const btn = e.target.closest("[data-idx]");
-  if (!btn) return;
-  play(allChannels[+btn.dataset.idx]);
-});
-document.getElementById("closePlayer").addEventListener("click", closePlayer);
-document.getElementById("playerModal").addEventListener("click", e => {
-  if (e.target.id === "playerModal") closePlayer();
-});
+    if (d.value || f.value || p.value || c.value || k.value || h.value) filled++;
+    sf += fv; sp += pv; sc += cv; sl += lv; sk += kv; sh += hv;
 
-// Load
-fetch(PLAYLIST_URL)
-  .then(r => r.text())
-  .then(txt => {
-    allChannels = parseM3U(txt);
-    document.getElementById("status").classList.add("hidden");
-    renderGroups();
-    render();
-  })
-  .catch(err => {
-    document.getElementById("status").innerHTML =
-      `<p class="text-red-500">Erro ao carregar a playlist: ${err.message}</p>`;
+    lines.push(`${d.value || '--'} | R$ ${f.value || '--'} | R$ ${p.value || '--'} | R$ ${c.value || '--'} | ${l.value ? 'R$ ' + l.value : '--'} | ${k.value || '--'} | ${h.value || '--'} | ${r.value ? 'R$ ' + r.value : '--'}`);
   });
+
+  lines.push('', '-----------------------------------------', 'ACUMULADO', '', 'FATURAMENTO: ' + fmtTxt(sf), 'PASSE:       ' + fmtTxt(sp), 'COMBUSTÍVEL: ' + fmtTxt(sc), 'LÍQUIDO:     ' + fmtTxt(sl), '-----------------------------------------', '', 'FÓRMULA:', 'LÍQUIDO = FATURAMENTO - PASSE - COMBUSTÍVEL', 'R$/HORA = LÍQUIDO ÷ HORAS TRABALHADAS');
+
+  document.getElementById('txtOutput').value = lines.join('\n');
+  document.getElementById('sumFaturamento').textContent = fmtTxt(sf);
+  document.getElementById('sumPasse').textContent = fmtTxt(sp);
+  document.getElementById('sumCombustivel').textContent = fmtTxt(sc);
+  document.getElementById('sumLiquido').textContent = fmtTxt(sl);
+  document.getElementById('sumKm').textContent = fmtBR(sk);
+  document.getElementById('sumHoras').textContent = fmtBR(sh);
+  document.getElementById('sumRHora').textContent = sh > 0 ? fmtTxt(sl / sh) : 'R$ 0,00';
+  document.getElementById('sumDias').textContent = filled;
+  saveData();
+}
+
+function copyTxt() {
+  const t = document.getElementById('txtOutput');
+  navigator.clipboard.writeText(t.value);
+}
+
+function resetMonth() {
+  localStorage.removeItem(KEY);
+  rows().forEach(tr => tr.querySelectorAll('input').forEach(i => i.value = ''));
+  update();
+}
+
+function scrollCarousel(distance) {
+  document.getElementById('adCarousel').scrollBy({ left: distance, behavior: 'smooth' });
+}
+
+tbody.addEventListener('input', update);
+loadData();
+update();
 </script>
 </body>
 </html>
