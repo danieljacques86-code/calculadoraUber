@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -40,8 +40,8 @@
     .num { text-align: right; font-variant-numeric: tabular-nums; }
     .small { font-size: 12px; color: var(--muted); margin-top: 10px; }
 
-    /* ESTILOS DO RODAPÉ COM CARROSSEL */
-    .banner-footer { margin-top: 24px; }
+    /* ESTILOS DO TOPO COM CARROSSEL DE PROPAGANDAS */
+    .banner-top { margin-bottom: 16px; }
     .carousel-wrapper { position: relative; display: flex; align-items: center; }
     .carousel-container {
       display: flex;
@@ -94,6 +94,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      border: 1px solid var(--line);
     }
     .carousel-btn.left { left: -15px; }
     .carousel-btn.right { right: -15px; }
@@ -107,6 +108,70 @@
 </head>
 <body>
 <div class="wrap">
+
+  <!-- PROPAGANDAS & PARCEIROS NO TOPO -->
+  <div class="card banner-top">
+    <div class="stat" style="margin-bottom:12px; border:none; padding:0; background:transparent;">
+      <div class="label">Anúncios & Parceiros</div>
+    </div>
+    <div class="carousel-wrapper">
+      <button class="carousel-btn left" onclick="scrollCarousel(-400)">&#10094;</button>
+      <div class="carousel-container" id="adCarousel">
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 1">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 2">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 3">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 4">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 5">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 6">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 7">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 8">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 9">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
+            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 10">
+          </a>
+        </div>
+      </div>
+      <button class="carousel-btn right" onclick="scrollCarousel(400)">&#10095;</button>
+    </div>
+  </div>
+
   <h1>CONTROLE DE CORRIDAS UBER</h1>
   <p class="sub">30 linhas com cálculos automáticos e cópia em TXT.</p>
 
@@ -154,24 +219,6 @@
       </thead>
       <tbody></tbody>
     </table>
-  </div>
-
-  <!-- RODAPÉ COM PROPAGANDAS EM CARROSSEL -->
-  <div class="card banner-footer">
-    <div class="stat" style="margin-bottom:12px; border:none; padding:0; background:transparent;">
-      <div class="label">Anúncios & Parceiros</div>
-    </div>
-    <div class="carousel-wrapper">
-      <button class="carousel-btn left" onclick="scrollCarousel(-400)">&#10094;</button>
-      <div class="carousel-container" id="adCarousel">
-        <div class="carousel-item">
-          <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
-            <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 1">
-          </a>
-        </div>
-      </div>
-      <button class="carousel-btn right" onclick="scrollCarousel(400)">&#10095;</button>
-    </div>
   </div>
 </div>
 
