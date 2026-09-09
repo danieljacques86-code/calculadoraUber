@@ -72,11 +72,39 @@
       height: 100%;
       text-decoration: none;
     }
-    .carousel-item img {
+    .carousel-item img,
+    .carousel-item video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+    .vip-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      color: #1f2937;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      padding: 9px 16px;
+      border-radius: 12px;
+      transition: .15s ease;
+      box-shadow: 0 4px 14px rgba(245,158,11,.35);
+      white-space: nowrap;
+    }
+    .vip-link:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+    .banner-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
     }
     .carousel-btn {
       position: absolute;
@@ -111,8 +139,11 @@
 
   <!-- PROPAGANDAS & PARCEIROS NO TOPO -->
   <div class="card banner-top">
-    <div class="stat" style="margin-bottom:12px; border:none; padding:0; background:transparent;">
-      <div class="label">Anúncios & Parceiros</div>
+    <div class="banner-head">
+      <div class="label" style="margin:0;">Anúncios & Parceiros</div>
+      <a class="vip-link" href="https://t.me/SmartTVFilmes_bot" target="_blank" rel="noopener noreferrer">
+        &#128274; Acesso VIP ao conteúdo
+      </a>
     </div>
     <div class="carousel-wrapper">
       <button class="carousel-btn left" onclick="scrollCarousel(-400)">&#10094;</button>
@@ -165,6 +196,13 @@
         <div class="carousel-item">
           <a href="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&dl=0" target="_blank" rel="noopener noreferrer">
             <img src="https://dl.dropbox.com/scl/fi/2eliknlh30cezqp40rike/publicidades.png?rlkey=fmx1qfhta1mvqkq9flaa62pb2&st=ryvkn5yy&raw=1" alt="Publicidade Parceiro 10">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="https://t.me/SmartTVFilmes_bot" target="_blank" rel="noopener noreferrer">
+            <video autoplay muted loop playsinline preload="metadata">
+              <source src="https://www.dropbox.com/scl/fi/px4od1vvm5ooq41mz694j/publicidade.mp4?rlkey=bnmup0v1r5jlv1idnbxz3qnib&st=lngmr27u&raw=1" type="video/mp4">
+            </video>
           </a>
         </div>
       </div>
